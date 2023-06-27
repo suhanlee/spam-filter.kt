@@ -17,16 +17,16 @@ fun tandemExecution(functions: List<CheckerFunction>, txt: String): Double {
     return results.average()
 }
 
-fun preprocess(txts: List<String>): List<String> {
+fun preprocess(texts: List<String>): List<String> {
     val headers = listOf("[Web발신]", "[국외발신]", "[국제발신]")
     val headersPattern = headers.joinToString(separator = "|") { Regex.escape(it) }
     val urlPattern = "https?://(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_+.~#?&//=]*)"
 
-    val processedTxts = txts.map { txt ->
+    val processedTexts = texts.map { txt ->
         txt.replace(headersPattern.toRegex(), "").replace(urlPattern.toRegex(), "")
     }
 
-    return processedTxts
+    return processedTexts
 }
 
 fun filterFunc(
@@ -36,7 +36,7 @@ fun filterFunc(
 ): Any {
     // load checkers
     val indivisualCheckers = mutableListOf<CheckerFunction>()
-    val classNames = Array(1) { index -> "devsh.si.spam.filter.F$index" }
+    val classNames = Array(4) { index -> "devsh.si.spam.filter.F$index" }
 
     classNames.forEach {
         val clazz = Class.forName(it)
@@ -63,8 +63,19 @@ fun filterFunc(
             decisions = decisions,
             num_functions = numFunctions
         )
-        print(response)
+        return response
     }
+}
+
+fun prettyPrint(obj: Any): String {
+    val properties = obj.javaClass.declaredFields
+        .map { it.isAccessible = true; it.name to it.get(obj) }
+        .toMap()
+    val stringBuilder = StringBuilder()
+    properties.forEach { (name, value) ->
+        stringBuilder.appendLine("$name=$value")
+    }
+    return stringBuilder.toString()
 }
 
 fun main(args: Array<String>) {
@@ -72,5 +83,5 @@ fun main(args: Array<String>) {
     val file = File(inputMessageCsv)
     val inputTexts = Files.readAllLines(file.toPath())
 
-    filterFunc(inputTexts = inputTexts)
+    println(prettyPrint(filterFunc(inputTexts = inputTexts)))
 }

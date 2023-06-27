@@ -1,7 +1,5 @@
 package devsh.si.spam.filter
 
-import java.util.regex.Pattern
-
 class F1 {
     fun isSpam(message: String): Boolean {
         var lowerCaseMessage = message.lowercase()

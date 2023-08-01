@@ -15,8 +15,10 @@ class F49 {
         )
 
         // Combine all spam patterns into a single regex pattern
-        val spamPatternRe = Pattern.compile(spamPatterns.joinToString(separator = "|"), Pattern.CASE_INSENSITIVE)
+        // TODO: 정규식 에러 코드
+//        val spamPatternRe = Pattern.compile(spamPatterns.joinToString(separator = "|"), Pattern.CASE_INSENSITIVE)
 
-        return spamPatternRe.matcher(message).find()
+        return false
+//        return spamPatternRe.matcher(message).find()
     }
 }

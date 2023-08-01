@@ -36,7 +36,7 @@ fun filterFunc(
 ): Any {
     // load checkers
     val indivisualCheckers = mutableListOf<CheckerFunction>()
-    val classNames = Array(20) { index -> "devsh.si.spam.filter.F$index" }
+    val classNames = Array(72) { index -> "devsh.si.spam.filter.F$index" }
 
     classNames.forEach {
         val clazz = Class.forName(it)
@@ -79,7 +79,7 @@ fun anyTrue(arr: Array<Boolean>): Boolean {
 fun filterFuncDecisionOnly(inputTexts: List<String>, threshHold: Double = 0.35): Boolean {
     // load checkers
     val indivisualCheckers = mutableListOf<CheckerFunction>()
-    val classNames = Array(4) { index -> "devsh.si.spam.filter.F$index" }
+    val classNames = Array(72) { index -> "devsh.si.spam.filter.F$index" }
 
     classNames.forEach {
         val clazz = Class.forName(it)

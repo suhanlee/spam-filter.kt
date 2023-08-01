@@ -36,7 +36,7 @@ fun filterFunc(
 ): Any {
     // load checkers
     val indivisualCheckers = mutableListOf<CheckerFunction>()
-    val classNames = Array(4) { index -> "devsh.si.spam.filter.F$index" }
+    val classNames = Array(20) { index -> "devsh.si.spam.filter.F$index" }
 
     classNames.forEach {
         val clazz = Class.forName(it)
@@ -67,6 +67,38 @@ fun filterFunc(
     }
 }
 
+fun anyTrue(arr: Array<Boolean>): Boolean {
+    for (element in arr) {
+        if (element) {
+            return true
+        }
+    }
+    return false
+}
+
+fun filterFuncDecisionOnly(inputTexts: List<String>, threshHold: Double = 0.35): Boolean {
+    // load checkers
+    val indivisualCheckers = mutableListOf<CheckerFunction>()
+    val classNames = Array(4) { index -> "devsh.si.spam.filter.F$index" }
+
+    classNames.forEach {
+        val clazz = Class.forName(it)
+        val instance = clazz.getDeclaredConstructor().newInstance()
+        val checkerFunction = Class.forName(it)
+            .getDeclaredMethod("isSpam", String::class.java)
+            .let { method ->
+                { txt: String -> method.invoke(instance, txt) as Boolean }
+            }
+        indivisualCheckers.add(checkerFunction)
+    }
+
+    val pInputTexts = preprocess(inputTexts)
+    val votedSpamRatio = pInputTexts.map { txt -> tandemExecution(indivisualCheckers, txt) }
+    val decisions = votedSpamRatio.map { r -> r >= threshHold }
+    val trueDecisions = decisions.filter { d -> d }
+    return trueDecisions.isNotEmpty()
+}
+
 fun prettyPrint(obj: Any): String {
     val properties = obj.javaClass.declaredFields
         .map { it.isAccessible = true; it.name to it.get(obj) }
@@ -84,4 +116,5 @@ fun main(args: Array<String>) {
     val inputTexts = Files.readAllLines(file.toPath())
 
     println(prettyPrint(filterFunc(inputTexts = inputTexts)))
+    println(filterFuncDecisionOnly(inputTexts = inputTexts))
 }

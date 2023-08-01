@@ -1,7 +1,7 @@
 package devsh.si.spam.filter
 
 class F21 {
-    fun isSpam(text: String): Boolean {
+    fun isSpam(message: String): Boolean {
         val re = Regex("\\W")
         val spamIndicators = listOf(
             "상한가",
@@ -21,6 +21,6 @@ class F21 {
             "마감"
         )
 
-        return spamIndicators.any { indicator -> text.contains(indicator) } && re.findAll(text).count() / text.length.toDouble() > 0.1
+        return spamIndicators.any { indicator -> message.contains(indicator) } && re.findAll(message).count() / message.length.toDouble() > 0.1
     }
 }

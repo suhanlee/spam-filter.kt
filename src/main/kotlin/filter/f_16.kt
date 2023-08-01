@@ -1,7 +1,7 @@
 package devsh.si.spam.filter
 
 class F16 {
-    fun isSpam(text: String): Boolean {
+    fun isSpam(message: String): Boolean {
 
         val spamPatterns = arrayOf(
             // URL shorteners and patterns associated with scam websites
@@ -29,7 +29,7 @@ class F16 {
             "(\\b\\w+\\b)\\W+\\1".toRegex())
 
         for (pattern in spamPatterns) {
-            if (pattern.containsMatchIn(text)) {
+            if (pattern.containsMatchIn(message)) {
                 return true
             }
         }

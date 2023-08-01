@@ -2,7 +2,7 @@ package devsh.si.spam.filter
 import java.util.regex.Pattern
 
 class F52 {
-    fun isSpam(text: String): Boolean {
+    fun isSpam(message: String): Boolean {
         // Check for common spam features
         val spamFeatures = arrayOf(
             "https?:\\/\\/",  // URLs
@@ -31,7 +31,7 @@ class F52 {
 
         for (feature in spamFeatures) {
             val regex = Pattern.compile(feature)
-            if (regex.matcher(text).find()) {
+            if (regex.matcher(message).find()) {
                 return true
             }
         }

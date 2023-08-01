@@ -3,7 +3,7 @@ import java.util.regex.Pattern
 
 class F49 {
 
-    fun isSpam(text: String): Boolean {
+    fun isSpam(message: String): Boolean {
         val spamPatterns = arrayOf(
             "\\d{1,2}%", // Percentage discounts
             "코드[:\\:]?\\w*",
@@ -17,6 +17,6 @@ class F49 {
         // Combine all spam patterns into a single regex pattern
         val spamPatternRe = Pattern.compile(spamPatterns.joinToString(separator = "|"), Pattern.CASE_INSENSITIVE)
 
-        return spamPatternRe.matcher(text).find()
+        return spamPatternRe.matcher(message).find()
     }
 }

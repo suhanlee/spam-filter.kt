@@ -2,7 +2,7 @@ package devsh.si.spam.filter
 import java.util.regex.Pattern
 
 class F65 {
-    fun isSpam(text: String): Boolean {
+    fun isSpam(message: String): Boolean {
         // Check for common spam characteristics
 //        val spamIndicators = arrayOf(
 //            "(광고)",  // 'Advertisement'

@@ -2,7 +2,7 @@ package devsh.si.spam.filter
 import java.util.regex.Pattern
 
 class F26 {
-    fun isSpam(text: String): Boolean {
+    fun isSpam(message: String): Boolean {
         // Check for spam keywords and patterns
         val spamKeywords = arrayOf("광고", "거부", "클릭", "해지", "이벤트", "공짜", "하세요", "무료", "최고", "상위", "증권사", "특별", "혜택", "무료거부", "입장코드", "특별정보방", "여의도", "입장", "금전")
 
@@ -20,23 +20,23 @@ class F26 {
 
         // Check for spam keywords
         for (keyword in spamKeywords) {
-            if (text.contains(keyword)) {
+            if (message.contains(keyword)) {
                 spamCount++
             }
         }
 
         // Check for URL patterns
-        if (urlPattern.matcher(text).find()) {
+        if (urlPattern.matcher(message).find()) {
             spamCount++
         }
 
         // Check for phone number patterns
-        if (phonePattern.matcher(text).find()) {
+        if (phonePattern.matcher(message).find()) {
             spamCount++
         }
 
         // Check for non-normal characters
-        if (nonNormalChars.matcher(text).find()) {
+        if (nonNormalChars.matcher(message).find()) {
             spamCount++
         }
 

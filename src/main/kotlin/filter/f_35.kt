@@ -1,7 +1,7 @@
 package devsh.si.spam.filter
 
 class F35 {
-    fun isSpam(text: String): Boolean {
+    fun isSpam(message: String): Boolean {
         // Check for common spam phrases
 //        val spamPhrases = listOf<String>(
 //            "광고", "지원금", "신청", "추천주", "수익률", "무료거부", "지급",
